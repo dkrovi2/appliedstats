@@ -67,8 +67,8 @@ rnorm(n = 10, mean = 2, sd = 5)
 ```
 
 ```
-##  [1] -0.6190182  4.4900191 -0.1676563  1.9672686 -0.9577004 -4.4294914
-##  [7]  1.6386795  6.5084872  4.8735251  3.3176047
+##  [1] -2.351451105 -4.478703005  3.222199032  2.517028951  3.468571089
+##  [6]  0.861682522  0.003402401 -7.181359350 -4.631556719  1.784453151
 ```
 
 These functions exist for many other distributions, including but not limited to:
@@ -99,7 +99,7 @@ Also note that, when using the `dname` functions with discrete distributions, th
 A prerequisite for STAT 420 is an understanding of the basics of hypothesis testing. Recall the basic structure of hypothesis tests:
 
 - An overall model and related assumptions are made. (The most common being observations following a normal distribution.)
-- The **null** ($H_{0}$) and **alternative** ($H_{1}$ or $H_{A}$) hypothesis are specified. Usually the null specifies a particular value of a parameter.
+- The **null** ($H_{0}$) and **alternative** ($H_{1}$ or $H_{A}$) hypotheses are specified. Usually the null specifies a particular value of a parameter.
 - With given data, the **value** of the *test statistic* is calculated.
 - Under the general assumptions, as well as assuming the null hypothesis is true, the **distribution** of the *test statistic* is known.
 - Given the distribution and value of the test statistic, as well as the form of the alternative hypothesis, we can calculate a **p-value** of the test.
@@ -124,14 +124,14 @@ where $\bar{x} = \displaystyle\frac{\sum_{i=1}^{n}x_{i}}{n}$ and $s = \sqrt{\dis
 A $100(1 - \alpha)$\% confidence interval for $\mu$ is given by,
 
 \[
-\bar{x} \pm t_{n-1}(\alpha/2)\frac{s}{\sqrt{n}}
+\bar{x} \pm t_{\alpha/2, n-1}\frac{s}{\sqrt{n}}
 \]
 
-where $t_{n-1}(\alpha/2)$ is the critical value such that $P\left(t>t_{n-1}(\alpha/2)\right) = \alpha/2$ for $n-1$ degrees of freedom.
+where $t_{\alpha/2, n-1}$ is the critical value such that $P\left(t>t_{\alpha/2, n-1}\right) = \alpha/2$ for $n-1$ degrees of freedom.
 
 ### One Sample t-Test: Example
 
-Suppose a grocery store sells "16 ounce" boxes of *Captain Crisp* cereal. A random sample of 9 boxes was taken and weighed. The weight in ounces are stored in the data frame `capt_crisp`.
+Suppose a grocery store sells "16 ounce" boxes of *Captain Crisp* cereal. A random sample of 9 boxes was taken and weighed. The weight in ounces is stored in the data frame `capt_crisp`.
 
 
 ```r
@@ -249,7 +249,7 @@ capt_test_results$conf.int
 ## [1] 0.95
 ```
 
-Let's check this interval "by hand." The one piece of information we are missing is the critical value, $t_{n-1}(\alpha/2) = t_{8}(0.025)$, which can be calculated in `R` using the `qt()` function.
+Let's check this interval "by hand." The one piece of information we are missing is the critical value, $t_{\alpha/2, n-1} = t_{8}(0.025)$, which can be calculated in `R` using the `qt()` function.
 
 
 ```r
@@ -263,7 +263,7 @@ qt(0.975, df = 8)
 So, the 95\% CI for the mean weight of a cereal box is calculated by plugging into the formula,
 
 \[
-\bar{x} \pm t_{n-1}(\alpha/2) \frac{s}{\sqrt{n}}
+\bar{x} \pm t_{\alpha/2, n-1} \frac{s}{\sqrt{n}}
 \]
 
 
@@ -293,10 +293,10 @@ where $\displaystyle\bar{x}=\frac{\sum_{i=1}^{n}x_{i}}{n}$, $\displaystyle\bar{y
 A $100(1-\alpha)$\% CI for $\mu_{x}-\mu_{y}$ is given by
 
 \[
-(\bar{x} - \bar{y}) \pm t_{n+m-2}(\alpha/2) \left(s_{p}\textstyle\sqrt{\frac{1}{n}+\frac{1}{m}}\right),
+(\bar{x} - \bar{y}) \pm t_{\alpha/2, n+m-2}\left(s_{p}\textstyle\sqrt{\frac{1}{n}+\frac{1}{m}}\right),
 \]
 
-where $t_{n+m-2}(\alpha/2)$ is the critical value such that $P\left(t>t_{n+m-2}(\alpha/2)\right)=\alpha/2$.
+where $t_{\alpha/2, n+m-2}$ is the critical value such that $P\left(t>t_{\alpha/2, n+m-2}\right)=\alpha/2$.
 
 ### Two Sample t-Test: Example
 
@@ -440,7 +440,7 @@ t.test(values ~ group, data = t_test_data,
 ## 
 ## data:  values by group
 ## t = 1.8234, df = 12, p-value = 0.04662
-## alternative hypothesis: true difference in means is greater than 0
+## alternative hypothesis: true difference in means between group A and group B is greater than 0
 ## 95 percent confidence interval:
 ##  0.1802451       Inf
 ## sample estimates:
@@ -533,7 +533,7 @@ Our strategy will be to repeatedly:
 
 - Generate a sample of 25 random observations from $N(\mu_1 = 6,\sigma^2 = 4)$. Call the mean of this sample $\bar{x}_{1s}$.
 - Generate a sample of 25 random observations from $N(\mu_1 = 5,\sigma^2 = 4)$. Call the mean of this sample $\bar{x}_{2s}$.
-- Calculate the differences of the means, $d_s = \bar{x}_{1s} - \bar{x}_{2s}$.
+- Calculate the differences in the means, $d_s = \bar{x}_{1s} - \bar{x}_{2s}$.
 
 We will repeat the process a large number of times. Then we will use the distribution of the simulated observations of $d_s$ as an estimate for the true distribution of $D$.
 
@@ -583,7 +583,7 @@ hist(differences, breaks = 20,
 
 ![](prob-and-stat_files/figure-latex/unnamed-chunk-30-1.pdf)<!-- --> 
 
-Also the sample mean and variance are very close to to what we would expect.
+Also the sample mean and variance are very close to what we would expect.
 
 
 ```r

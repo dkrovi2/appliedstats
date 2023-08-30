@@ -99,9 +99,9 @@ $$
 \log\left(\frac{p({\bf x})}{1 - p({\bf x})}\right) = \beta_0 + \beta_1 x_1 + \ldots  + \beta_{p - 1} x_{p - 1}
 $$
 
-Immediately we notice some similarities to ordinary linear regression, in particular, the right hand side. This is our usual linear combination of the predictors. We have our usual $p - 1$ predictors for a total of $p$ $\beta$ parameters. (Note, many more machine learning focused texts will use $p$ as the number of predictors. This is an arbitrary choice, but you should be aware of it.)
+Immediately we notice some similarities to ordinary linear regression, in particular, the right-hand side. This is our usual linear combination of the predictors. We have our usual $p - 1$ predictors for a total of $p$ $\beta$ parameters. (Note, many more machine learning focused texts will use $p$ as the number of predictors. This is an arbitrary choice, but you should be aware of it.)
 
-The left hand side is called the **log odds**, which is the log of the odds. The odds are the probability for a positive event $(Y = 1)$ divided by the probability of a negative event $(Y = 0)$. So when the odds are $1$, the two events have equal probability. Odds greater than $1$ favor a positive event. The opposite is true when the odds are less than $1$.
+The left-hand side is called the **log odds**, which is the log of the odds. The odds are the probability for a positive event $(Y = 1)$ divided by the probability of a negative event $(Y = 0)$. So when the odds are $1$, the two events have equal probability. Odds greater than $1$ favor a positive event. The opposite is true when the odds are less than $1$.
 
 $$
 \frac{p({\bf x})}{1 - p({\bf x})} = \frac{P[Y = 1 \mid {\bf X} = {\bf x}]}{P[Y = 0 \mid {\bf X} = {\bf x}]}
@@ -121,7 +121,7 @@ $$
 
 Note that for $x \in (-\infty, \infty))$, this function outputs values between 0 and 1.
 
-Students often ask, where is the error term? The answer is that its something that is specific to the normal model. First notice that the model with the error term,
+Students often ask, where is the error term? The answer is that it's something that is specific to the normal model. First notice that the model with the error term,
 
 $$
 Y = \beta_0 + \beta_1x_1 + \ldots + \beta_qx_q + \epsilon, \ \ \epsilon \sim N(0, \sigma^2)
@@ -153,7 +153,7 @@ $$
 With $n$ observations, we write the model indexed with $i$ to note that it is being applied to each observation. 
 
 $$
-\log\left(\frac{p({\bf x_i})}{1 - p({\bf x_i)})}\right) = \beta_0 + \beta_1 x_{i1} + \cdots + \beta_{p-1} x_{i(p-1)}
+\log\left(\frac{p({\bf x_i})}{1 - p({\bf x_i})}\right) = \beta_0 + \beta_1 x_{i1} + \cdots + \beta_{p-1} x_{i(p-1)}
 $$
 
 We can apply the inverse logit transformation to obtain $P[Y_i = 1 \mid {\bf X_i} = {\bf x_i}]$ for each observation. Since these are probabilities, it's good that we used a function that returns values between $0$ and $1$.
@@ -276,7 +276,7 @@ head(example_data)
 ## 6 0 -0.8204684
 ```
 
-After simulating a dataset, we'll then fit both ordinary linear regression and logistic regression. Notice that currently the responses variable `y` is a numeric variable that only takes values `0` and `1`. Later we'll see that we can also fit logistic regression when the response is a factor variable with only two levels. (Generally, having a factor response is preferred, but having a dummy response allows use to make the comparison to using ordinary linear regression.)
+After simulating a dataset, we'll then fit both ordinary linear regression and logistic regression. Notice that currently the responses variable `y` is a numeric variable that only takes values `0` and `1`. Later we'll see that we can also fit logistic regression when the response is a factor variable with only two levels. (Generally, having a factor response is preferred, but having a dummy response allows us to make the comparison to using ordinary linear regression.)
 
 
 ```r
@@ -319,6 +319,34 @@ That is, `type = "link"` will get you the log odds, while `type = "response"` wi
 
 
 ```r
+predict(fit_glm, data.frame(x = 1.2)) # type = "link" as default
+```
+
+```
+##        1 
+## 2.076166
+```
+
+```r
+predict(fit_glm, data.frame(x = 1.2), type = "link")
+```
+
+```
+##        1 
+## 2.076166
+```
+
+```r
+predict(fit_glm, data.frame(x = 1.2), type = "response")
+```
+
+```
+##        1 
+## 0.888565
+```
+
+
+```r
 plot(y ~ x, data = example_data, 
      pch = 20, ylab = "Estimated Probability", 
      main = "Ordinary vs Logistic Regression")
@@ -332,7 +360,7 @@ legend("topleft", c("Ordinary", "Logistic", "Data"), lty = c(1, 2, 0),
 
 
 
-\begin{center}\includegraphics{logistic_files/figure-latex/unnamed-chunk-8-1} \end{center}
+\begin{center}\includegraphics{logistic_files/figure-latex/unnamed-chunk-9-1} \end{center}
 
 Since we only have a single predictor variable, we are able to graphically show this situation. First, note that the data, is plotted using black dots. The response `y` only takes values `0` and `1`.
 
@@ -422,7 +450,7 @@ legend("bottomleft", c("True Probability", "Estimated Probability", "Data"), lty
 
 
 
-\begin{center}\includegraphics{logistic_files/figure-latex/unnamed-chunk-12-1} \end{center}
+\begin{center}\includegraphics{logistic_files/figure-latex/unnamed-chunk-13-1} \end{center}
 
 We see that this time, as $x$ increases, $\hat{p}({\bf x})$ decreases.
 
@@ -480,7 +508,7 @@ legend("bottomleft", c("True Probability", "Estimated Probability", "Data"), lty
 
 
 
-\begin{center}\includegraphics{logistic_files/figure-latex/unnamed-chunk-16-1} \end{center}
+\begin{center}\includegraphics{logistic_files/figure-latex/unnamed-chunk-17-1} \end{center}
 
 ## Working with Logistic Regression
 
@@ -543,7 +571,7 @@ We'll skip some of the exact details of the calculations, as `R` will obtain the
 Consider the following **full** model,
 
 $$
-\log\left(\frac{p({\bf x_i})}{1 - p({\bf x_i})}\right) = \beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \cdots + \beta_{(p-1)} x_{i(p-1)} + \epsilon_i
+\log\left(\frac{p({\bf x_i})}{1 - p({\bf x_i})}\right) = \beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \cdots + \beta_{(p-1)} x_{i(p-1)}
 $$
 
 This model has $p - 1$ predictors, for a total of $p$ $\beta$-parameters. We will denote the MLE of these $\beta$-parameters as $\hat{\beta}_{\text{Full}}$
@@ -551,7 +579,7 @@ This model has $p - 1$ predictors, for a total of $p$ $\beta$-parameters. We wil
 Now consider a **null** (or **reduced**) model,
 
 $$
-\log\left(\frac{p({\bf x_i})}{1 - p({\bf x_i})}\right) = \beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \cdots + \beta_{(q-1)} x_{i(q-1)} + \epsilon_i
+\log\left(\frac{p({\bf x_i})}{1 - p({\bf x_i})}\right) = \beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \cdots + \beta_{(q-1)} x_{i(q-1)}
 $$
 
 where $q < p$. This model has $q - 1$ predictors, for a total of $q$ $\beta$-parameters. We will denote the MLE of these $\beta$-parameters as $\hat{\beta}_{\text{Null}}$
@@ -584,19 +612,19 @@ The Likelihood-Ratio Test is actually a rather general test, however, here we ha
 
 ### `SAheart` Example
 
-To illustrate the use of logistic regression, we will use the `SAheart` dataset from the `ElemStatLearn` package. 
+To illustrate the use of logistic regression, we will use the `SAheart` dataset from the `bestglm` package. 
 
 
 ```r
-# install.packages("bestglm")
+# "leaps" is required for "bestglm"
+if (!require("leaps")) install.packages("leaps")
+if (!require("bestglm")) install.packages("bestglm")
+```
+
+
+```r
+library(leaps)
 library(bestglm)
-```
-
-```
-## Loading required package: leaps
-```
-
-```r
 data("SAheart")
 ```
 
@@ -641,7 +669,7 @@ curve(predict(chd_mod_ldl, data.frame(ldl = x), type = "response"),
 
 
 
-\begin{center}\includegraphics{logistic_files/figure-latex/unnamed-chunk-19-1} \end{center}
+\begin{center}\includegraphics{logistic_files/figure-latex/unnamed-chunk-21-1} \end{center}
 
 As before, we plot the data in addition to the estimated probabilities. Note that we have "jittered" the data to make it easier to visualize, but the data do only take values `0` and `1`.
 
@@ -845,7 +873,7 @@ By setting `se.fit = TRUE`, `R` also computes $\text{SE}[\hat{\eta}({\bf x})]$. 
 
 
 ```r
-z_crit = round(qnorm(0.975), 2)
+z_crit = qnorm(0.975)
 round(z_crit, 2)
 ```
 
@@ -861,7 +889,7 @@ eta_hat$fit + c(-1, 1) * z_crit * eta_hat$se.fit
 ```
 
 ```
-## [1] 0.773045 2.386045
+## [1] 0.7730599 2.3860302
 ```
 
 Now we simply need to apply the correct transformation to make this a confidence interval for $p({\bf x})$, the probability of coronary heart disease for this observation. Note that the `boot` package contains functions `logit()` and `inv.logit()` which are the logit and inverse logit transformations, respectively.
@@ -872,7 +900,7 @@ boot::inv.logit(eta_hat$fit + c(-1, 1) * z_crit * eta_hat$se.fit)
 ```
 
 ```
-## [1] 0.6841792 0.9157570
+## [1] 0.6841824 0.9157558
 ```
 
 Notice, as we would expect, the bounds of this interval are both between 0 and 1. Also, since both bounds of the interval for $\eta({\bf x})$ are positive, both bounds of the interval for $p({\bf x})$ are greater than 0.5.
@@ -897,10 +925,6 @@ summary(chd_mod_interaction)
 ## Call:
 ## glm(formula = chd ~ alcohol + ldl + famhist + typea + age + ldl:famhist, 
 ##     family = binomial, data = SAheart)
-## 
-## Deviance Residuals: 
-##     Min       1Q   Median       3Q      Max  
-## -1.9082  -0.8308  -0.4550   0.9286   2.5152  
 ## 
 ## Coefficients:
 ##                     Estimate Std. Error z value Pr(>|z|)    
@@ -941,10 +965,6 @@ summary(chd_mod_int_quad)
 ## Call:
 ## glm(formula = chd ~ alcohol + ldl + famhist + typea + age + ldl:famhist + 
 ##     I(ldl^2), family = binomial, data = SAheart)
-## 
-## Deviance Residuals: 
-##     Min       1Q   Median       3Q      Max  
-## -1.8953  -0.8311  -0.4556   0.9276   2.5204  
 ## 
 ## Coefficients:
 ##                     Estimate Std. Error z value Pr(>|z|)    
@@ -990,7 +1010,7 @@ You may have realized this before we actually explicitly wrote it down!
 
 You have probably noticed that the output from `summary()` is also very similar to that of ordinary linear regression. One difference, is the "deviance" being reported. The `Null deviance` is the deviance for the null model, that is, a model with no predictors. The `Residual deviance` is the deviance for the model that was fit.
 
-[**Deviance**](https://en.wikipedia.org/wiki/Deviance_(statistics)){target="_blank"} compares the model to a saturated model. (Without repeated observations, a saturated model is a model that fits perfectly, using a parameter for each observation.) Essentially, deviance is a generalized *residual sum of squares* for GLMs. Like RSS, deviance decreased as the model complexity increases.
+[**Deviance**](https://en.wikipedia.org/wiki/Deviance_(statistics)){target="_blank"} compares the model to a saturated model. (Without repeated observations, a saturated model is a model that fits perfectly, using a parameter for each observation.) Essentially, deviance is a generalized *residual sum of squares* for GLMs. Like RSS, deviance decreases as the model complexity increases.
 
 
 ```r
@@ -1084,11 +1104,12 @@ tibble::as.tibble(spam)
 ```
 
 ```
-## Warning: `as.tibble()` is deprecated as of tibble 2.0.0.
-## Please use `as_tibble()` instead.
-## The signature and semantics have changed, see `?as_tibble`.
+## Warning: `as.tibble()` was deprecated in tibble 2.0.0.
+## i Please use `as_tibble()` instead.
+## i The signature and semantics have changed, see `?as_tibble`.
 ## This warning is displayed once every 8 hours.
-## Call `lifecycle::last_warnings()` to see where this warning was generated.
+## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+## generated.
 ```
 
 ```
@@ -1105,20 +1126,16 @@ tibble::as.tibble(spam)
 ##  8  0       0     0        0  1.88  0      0        1.88  0     0       0   
 ##  9  0.15    0     0.46     0  0.61  0      0.3      0     0.92  0.76    0.76
 ## 10  0.06    0.12  0.77     0  0.19  0.32   0.38     0     0.06  0       0   
-## # ... with 4,591 more rows, and 47 more variables: will <dbl>, people <dbl>,
-## #   report <dbl>, addresses <dbl>, free <dbl>, business <dbl>, email <dbl>,
-## #   you <dbl>, credit <dbl>, your <dbl>, font <dbl>, num000 <dbl>, money <dbl>,
-## #   hp <dbl>, hpl <dbl>, george <dbl>, num650 <dbl>, lab <dbl>, labs <dbl>,
-## #   telnet <dbl>, num857 <dbl>, data <dbl>, num415 <dbl>, num85 <dbl>,
-## #   technology <dbl>, num1999 <dbl>, parts <dbl>, pm <dbl>, direct <dbl>,
-## #   cs <dbl>, meeting <dbl>, original <dbl>, project <dbl>, re <dbl>,
-## #   edu <dbl>, table <dbl>, conference <dbl>, charSemicolon <dbl>,
-## #   charRoundbracket <dbl>, charSquarebracket <dbl>, charExclamation <dbl>,
-## #   charDollar <dbl>, charHash <dbl>, capitalAve <dbl>, capitalLong <dbl>,
-## #   capitalTotal <dbl>, type <fct>
+## # i 4,591 more rows
+## # i 47 more variables: will <dbl>, people <dbl>, report <dbl>, addresses <dbl>,
+## #   free <dbl>, business <dbl>, email <dbl>, you <dbl>, credit <dbl>,
+## #   your <dbl>, font <dbl>, num000 <dbl>, money <dbl>, hp <dbl>, hpl <dbl>,
+## #   george <dbl>, num650 <dbl>, lab <dbl>, labs <dbl>, telnet <dbl>,
+## #   num857 <dbl>, data <dbl>, num415 <dbl>, num85 <dbl>, technology <dbl>,
+## #   num1999 <dbl>, parts <dbl>, pm <dbl>, direct <dbl>, cs <dbl>, ...
 ```
 
-This dataset, created in the late 1990s at Hewlett-Packard Labs, contains 4601 emails, of which 1813 are considered spam. The remaining are not spam. (Which for simplicity, we might call, ham.) Additional details can be obtained by using `?spam` of by visiting the [UCI Machine Learning Repository](https://archive.ics.uci.edu/ml/datasets/spambase){target="_blank"}. 
+This dataset, created in the late 1990s at Hewlett-Packard Labs, contains 4601 emails, of which 1813 are considered spam. The remaining are not spam. (Which for simplicity, we might call, ham.) Additional details can be obtained by using `?spam` or by visiting the [UCI Machine Learning Repository](https://archive.ics.uci.edu/ml/datasets/spambase){target="_blank"}. 
 
 The response variable, `type`, is a **factor** with levels that label each email as `spam` or `nonspam`. When fitting models, `nonspam` will be the reference level, $Y = 0$, as it comes first alphabetically.
 
@@ -1139,7 +1156,7 @@ levels(spam$type)
 ## [1] "nonspam" "spam"
 ```
 
-Many of the predictors (often called features in machine learning) are engineered based on the emails. For example, `charDollar` is the number of times an email contains the `$` character. Some variables are highly specific to this dataset, for example `george` and `num650`. (The name and area code for one of the researchers whose emails were used.) We should keep in mind that this dataset was created based on emails send to academic type researcher in the 1990s. Any results we derive probably won't generalize to modern emails for the general public.
+Many of the predictors (often called features in machine learning) are engineered based on the emails. For example, `charDollar` is the number of times an email contains the `$` character. Some variables are highly specific to this dataset, for example `george` and `num650`. (The name and area code for one of the researchers whose emails were used.) We should keep in mind that this dataset was created based on emails sent to academic type researchers in the 1990s. Any results we derive probably won't generalize to modern emails for the general public.
 
 To get started, we'll first test-train split the data.
 
@@ -1163,7 +1180,7 @@ fit_selected = glm(type ~ edu + money + capitalTotal + charDollar,
 fit_additive = glm(type ~ ., 
                    data = spam_trn, family = binomial)
 fit_over = glm(type ~ capitalTotal * (.), 
-               data = spam_trn, family = binomial, maxit = 50)
+               data = spam_trn, family = binomial, maxit = 75)
 ```
 
 We'll fit four logistic regressions, each more complex than the previous. Note that we're suppressing two warnings. The first we briefly mentioned previously.
@@ -1194,7 +1211,7 @@ We also, "suppressed" the warning:
 ## Warning: glm.fit: algorithm did not converge
 ```
 
-In reality, we didn't actually suppress it, but instead changed `maxit` to `50`, when fitting the model `fit_over`. This was enough additional iterations to allow the iteratively reweighted least squares algorithm to converge when fitting the model.
+In reality, we didn't actually suppress it, but instead changed `maxit` to `75`, when fitting the model `fit_over`. This was enough additional iterations to allow the iteratively reweighted least squares algorithm to converge when fitting the model.
 
 ### Evaluating Classifiers
 
@@ -1245,14 +1262,14 @@ mean(ifelse(predict(fit_over) > 0, "spam", "nonspam") != spam_trn$type)
 ```
 
 ```
-## [1] 0.136
+## [1] 0.118
 ```
 
 Because of this, training data isn't useful for evaluating, as it would suggest that we should always use the largest possible model, when in reality, that model is likely overfitting. Recall, a model that is too complex will overfit. A model that is too simple will underfit. (We're looking for something in the middle.)
 
-To overcome this, we'll use cross-validation as we did with ordinary linear regression, but this time we'll cross-validate the misclassification rate. To do so, we'll use the `cv.glm()` function from the `boot` library. It takes arguments for the data (in this case training), a model fit via `glm()`, and `K`, the number of folds. See `?cv.glm` for details.
+To overcome this, we'll use cross-validation as we did with ordinary linear regression, but this time we'll cross-validate the misclassification rate. To do so, we'll use the `cv.glm()` function from the `boot` library. It takes arguments for the data (in this case training), a model fit via `glm()`, and `K`, the number of folds. It returns `delta`, a vector of the average mean-squared error (MSE) and the bias-corrected MSE. See `?cv.glm` for details.
 
-Previously, for cross-validating RMSE in ordinary linear regression, we used LOOCV. We certainly could do that here. However, with logistic regression, we no longer have the clever trick that would allow use to obtain a LOOCV metric without needing to fit the model $n$ times. So instead, we'll use 5-fold cross-validation. (5 and 10 fold are the most common in practice.) Instead of leaving a single observation out repeatedly, we'll leave out a fifth of the data.
+Previously, for cross-validating RMSE in ordinary linear regression, we used LOOCV. We certainly could do that here. However, with logistic regression, we no longer have the clever trick that would allow us to obtain a LOOCV metric without needing to fit the model $n$ times. So instead, we'll use 5-fold cross-validation. (5 and 10 fold are the most common in practice.) Instead of leaving a single observation out repeatedly, we'll leave out a fifth of the data.
 
 Essentially we'll repeat the following process 5 times:
 
@@ -1294,7 +1311,7 @@ cv.glm(spam_trn, fit_over, K = 5)$delta[1]
 ```
 
 ```
-## [1] 0.143
+## [1] 0.146
 ```
  
 Note that we're suppressing warnings again here. (Now there would be a lot more, since were fitting a total of 20 models.)
@@ -1364,7 +1381,7 @@ table(spam_tst$type) / nrow(spam_tst)
 
 First, note that to be a reasonable classifier, it needs to outperform the obvious classifier of simply classifying all observations to the majority class. In this case, classifying everything as non-spam for a test misclassification rate of 0.3935018
 
-Next, we can see that using the classifier create from `fit_additive`, only a total of $137 + 161 = 298$ from the total of 3601 email in the test set are misclassified. Overall, the accuracy in the test set it
+Next, we can see that using the classifier created from `fit_additive`, only a total of $137 + 161 = 298$ from the total of 3601 emails in the test set are misclassified. Overall, the accuracy in the test set it
 
 
 ```r
@@ -1388,9 +1405,9 @@ mean(spam_tst_pred != spam_tst$type)
 
 This seems like a decent classifier...
 
-However, are all errors created equal? In this case, absolutely not. The 137 non-spam emails that were marked as spam (false positives) are a problem. We can't allow important information, say, a job offer, miss our inbox and get sent to the spam folder. On the other hand, the 161 spam email that would make it to an inbox (false negatives) are easily dealt with, just delete them.
+However, are all errors created equal? In this case, absolutely not. The 137 non-spam emails that were marked as spam (false positives) are a problem. We can't allow important information, say, a job offer, to miss our inbox and get sent to the spam folder. On the other hand, the 161 spam email that would make it to an inbox (false negatives) are easily dealt with, just delete them.
 
-Instead of simply evaluating a classifier based on its misclassification rate (or accuracy), we'll define two additional metrics, sensitivity and specificity. Note that these are simply two of many more metrics that can be considered. The [Wikipedia page for sensitivity and specificity](https://en.wikipedia.org/wiki/Sensitivity_and_specificity){target="_blank"} details a large number of metrics that can be derived form a confusion matrix.
+Instead of simply evaluating a classifier based on its misclassification rate (or accuracy), we'll define two additional metrics, sensitivity and specificity. Note that these are simply two of many more metrics that can be considered. The [Wikipedia page for sensitivity and specificity](https://en.wikipedia.org/wiki/Sensitivity_and_specificity){target="_blank"} details a large number of metrics that can be derived from a confusion matrix.
 
 **Sensitivity** is essentially the true positive rate. So when sensitivity is high, the number of false negatives is low.
 
@@ -1535,11 +1552,11 @@ get_spec(conf_mat_90)
 ## [1] 0.978022
 ```
 
-While this is far fewer false positives, is it acceptable though? Still probably not. Also, don't forget, this would actually be a terrible spam detector today since this is based on data from a very different era of the internet, for a very specific set of people. Spam has changed a lot since 90s! (Ironically, machine learning is probably partially to blame.)
+While this is far fewer false positives, is it acceptable though? Still probably not. Also, don't forget, this would actually be a terrible spam detector today since this is based on data from a very different era of the internet, for a very specific set of people. Spam has changed a lot since the 90s! (Ironically, machine learning is probably partially to blame.)
 
 This chapter has provided a rather quick introduction to classification, and thus, machine learning. For a more complete coverage of machine learning, [An Introduction to Statistical Learning](http://www-bcf.usc.edu/~gareth/ISL/){target="_blank"} is a highly recommended resource. Additionally, [`R` for Statistical Learning](https://daviddalpiaz.github.io/r4sl/){target="_blank"} has been written as a supplement which provides additional detail on how to perform these methods using `R`. The [classification](https://daviddalpiaz.github.io/r4sl/classification-overview.html){target="_blank"} and [logistic regression](https://daviddalpiaz.github.io/r4sl/logistic-regression.html){target="_blank"} chapters might be useful.
 
-We should note that the code to perform classification using logistic regression is presented in a way that illustrates the concepts to the reader. In practice, you may to prefer to use a more general machine learning pipeline such as [`caret`](http://topepo.github.io/caret/index.html){target="_blank"} in `R`. This will streamline processes for creating predictions and generating evaluation metrics.
+We should note that the code to perform classification using logistic regression is presented in a way that illustrates the concepts to the reader. In practice, you may prefer to use a more general machine learning pipeline such as [`caret`](http://topepo.github.io/caret/index.html){target="_blank"} in `R`. This will streamline processes for creating predictions and generating evaluation metrics.
 
 ## `R` Markdown
 
@@ -1547,4 +1564,4 @@ The `R` Markdown file for this chapter can be found here:
 
 - [`logistic.Rmd`](logistic.Rmd){target="_blank"}
 
-The file was created using `R` version `4.0.2`.
+The file was created using `R` version `4.3.1`.

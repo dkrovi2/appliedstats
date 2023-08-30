@@ -1,6 +1,6 @@
 --- 
 title: "Applied Statistics with R"
-date: "2020-10-30"
+author: "[David Dalpiaz](https://daviddalpiaz.org/)"
 github-repo: daviddalpiaz/appliedstats
 url: 'https\://daviddalpiaz.github.io/appliedstats/'
 knit: "bookdown::render_book"
@@ -20,7 +20,7 @@ Welcome to Applied Statistics with R!
 
 ## About This Book
 
-This book was originally (and currently) designed for use with **STAT 420**, *Methods of Applied Statistics*, at the University of Illinois at Urbana-Champaign. It may certainly be used elsewhere, but any references to "this course" in this book specifically refer to STAT 420.
+This book was originally (and currently) designed for use with **STAT 420**, *Methods of Applied Statistics*, at the University of Illinois Urbana-Champaign. It may certainly be used elsewhere, but any references to "this course" in this book specifically refer to STAT 420.
 
 This book is under active development. When possible, it would be best to always access the text online to be sure you are using the most up-to-date version. Also, the html version provides additional features such as changing text size, font, and colors. If you are in need of a local copy, a [**pdf version** is continuously maintained](http://daviddalpiaz.github.io/appliedstats/applied_statistics.pdf){target="_blank"}, however, because a pdf uses pages, the formatting may not be as functional. (In other words, the author needs to go back and spend some time working on the pdf formatting.)
 
@@ -91,6 +91,21 @@ Your name could be here! Suggest an edit! Correct a typo! If you submit a correc
 - [Yingkui Lin](https://github.com/lin){target="_blank"}
 - [Andy Siddall](https://www.researchgate.net/profile/Andy_Siddall){target="_blank"}
 - [Nishant Balepur](https://github.com/nbalepur){target="_blank"}
+- [Durga Krovi](https://github.com/dkrovi2){target="_blank"}
+- [Raj Krishnan](https://www.rajkrishnan.dev){target="_blank"}
+- [Ed Pureza](https://github.com/purecod3){target="_blank"}
+- [Siddharth Singh](https://www.linkedin.com/in/siddharth-singh-87859142/){target="_blank"}
+- [Schillaci Mcinnis](https://github.com/kerlue){target="_blank"}
+- [Ivan Valdes Castillo](https://github.com/ivanvc){target="_blank"}
+- [Tony Mu](https://tonymuu.github.io/){target="_blank"}
+- [Salman Yousaf](https://www.linkedin.com/in/salman-y){target="_blank"}
+- [Yutaro Nishiyama](https://www.linkedin.com/in/yutaro-nishiyama-a8a895b4/){target="_blank"}
+- [Regina Sahani Goonetilleke](https://www.linkedin.com/in/sahani-goonetilleke/){target="_blank"}
+- [Paul Zuradzki](https://github.com/paulzuradzki){target="_blank"}
+- [Will Tsai](https://github.com/willtsai){target="_blank"}
+- [Ellen Veomett](https://sites.google.com/a/stmarys-ca.edu/ellen-veomett/){target="_blank"}
+- [David Newman](https://github.com/djoldman/){target="_blank"}
+- [Yixing Zheng](https://github.com/yixingz3){target="_blank"}
 
 ## License
 

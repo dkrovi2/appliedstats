@@ -61,7 +61,7 @@ fit2 = lm(y ~ x1 + x3, data = exact_collin_data)
 fit3 = lm(y ~ x2 + x3, data = exact_collin_data)
 ```
 
-We see that the fitted values for each of the three models are exactly the same. This is a result of $x_3$ containing all of the information from $x_1$ and $x_2$. As long as one of $x_1$ or $x_2$ are included in the model, $x_3$ can be used to recover the information from the variable not included.
+We see that the fitted values for each of the three models are exactly the same. This is a result of $x_3$ containing all of the information from $x_1$ and $x_2$. As long as one of $x_1$ or $x_2$ is included in the model, $x_3$ can be used to recover the information from the variable not included.
 
 ```{r}
 all.equal(fitted(fit1), fitted(fit2))
@@ -92,7 +92,7 @@ round(cor(seatpos), 2)
 
 After loading the `faraway` package, we do some quick checks of correlation between the predictors. Visually, we can do this with the `pairs()` function, which plots all possible scatterplots between pairs of variables in the dataset.
 
-We can also do this numerically with the `cor()` function, which when applied to a dataset, returns all pairwise correlations. Notice this is a symmetric matrix. Recall that correlation measures strength and direction of the linear relationship between to variables. The correlation between `Ht` and `HtShoes` is extremely high. So high, that rounded to two decimal places, it appears to be 1!
+We can also do this numerically with the `cor()` function, which when applied to a dataset, returns all pairwise correlations. Notice this is a symmetric matrix. Recall that correlation measures strength and direction of the linear relationship between two variables. The correlation between `Ht` and `HtShoes` is extremely high. So high, that rounded to two decimal places, it appears to be 1!
 
 Unlike exact collinearity, here we can still fit a model with all of the predictors, but what effect does this have?
 
@@ -146,7 +146,7 @@ vif(hip_model)
 
 In practice it is common to say that any VIF greater than $5$ is cause for concern. So in this example we see there is a huge multicollinearity issue as many of the predictors have a VIF greater than 5.
 
-Let's further investigate how the presence of collinearity actually effects a model. If we add a moderate amount of noise to the data, we see that the estimates of the coefficients change drastically. This is a rather undesirable effect. Adding random noise should not effect the coefficients of a model.
+Let's further investigate how the presence of collinearity actually affects a model. If we add a moderate amount of noise to the data, we see that the estimates of the coefficients change drastically. This is a rather undesirable effect. Adding random noise should not affect the coefficients of a model.
 
 ```{r}
 set.seed(1337)
@@ -161,7 +161,7 @@ coef(hip_model)
 coef(hip_model_noise)
 ```
 
-This tells us that a model with collinearity is bad at explaining the relationship between the response and the predictors. We cannot even be confident in the direction of the relationship. However, does collinearity effect prediction?
+This tells us that a model with collinearity is bad at explaining the relationship between the response and the predictors. We cannot even be confident in the direction of the relationship. However, does collinearity affect prediction?
 
 ```{r}
 plot(fitted(hip_model), fitted(hip_model_noise), col = "dodgerblue", pch = 20,
@@ -214,7 +214,8 @@ Similarly a **variable added plot** visualizes these residuals against each othe
 plot(resid(hip_model_small) ~ resid(ht_shoes_model_small), 
      col = "dodgerblue", pch = 20,
      xlab = "Residuals, Added Predictor", 
-     ylab = "Residuals, Original Model")
+     ylab = "Residuals, Original Model",
+     main = "Variable Added Plot")
 abline(h = 0, lty = 2)
 abline(v = 0, lty = 2)
 abline(lm(resid(hip_model_small) ~ resid(ht_shoes_model_small)),
@@ -225,7 +226,7 @@ Here the variable added plot shows almost no linear relationship. This tells us 
 
 Had there been a strong linear relationship here, thus a large partial correlation coefficient, it would likely have been useful to add the additional predictor to the model.
 
-This trade off is mostly true in general. As a model gets more predictors, errors will get smaller and its *prediction* will be better, but it will be harder to interpret. This is why, if we are interested in *explaining* the relationship between the predictors and the response, we often want a model that fits well, but with a small number of predictors with little correlation.
+This trade-off is mostly true in general. As a model gets more predictors, errors will get smaller and its *prediction* will be better, but it will be harder to interpret. This is why, if we are interested in *explaining* the relationship between the predictors and the response, we often want a model that fits well, but with a small number of predictors with little correlation.
 
 Next chapter we will learn about methods to find models that both fit well, but also have a small number of predictors. We will also discuss *overfitting*. Although, adding additional predictors will always make errors smaller, sometimes we will be "fitting the noise" and such a model will not generalize to additional observations well.
 
@@ -392,7 +393,7 @@ hist(mse_good,
      xlab = "MSE")
 ```
 
-Interestingly, in both cases, the MSE is roughly the same on average. Again, this is because collinearity effects a model's ability to *explain*, but not predict.
+Interestingly, in both cases, the MSE is roughly the same on average. Again, this is because collinearity affects a model's ability to *explain*, but not predict.
 
 ```{r}
 mean(mse_bad)

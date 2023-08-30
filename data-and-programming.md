@@ -32,7 +32,7 @@
 
 Many operations in `R` make heavy use of **vectors**. Vectors in `R` are indexed starting at `1`. That is what the `[1]` in the output is indicating, that the first element of the row being displayed is the first element of the vector. Larger vectors will start additional rows with `[*]` where `*` is the index of the first element of the row.
 
-Possibly the most common way to create a vector in `R` is using the `c()` function, which is short for "combine."" As the name suggests, it combines a list of elements separated by commas. 
+Possibly the most common way to create a vector in `R` is using the `c()` function, which is short for "combine." As the name suggests, it combines a list of elements separated by commas. 
 
 
 ```r
@@ -43,7 +43,7 @@ c(1, 3, 5, 7, 8, 9)
 ## [1] 1 3 5 7 8 9
 ```
 
-Here `R` simply outputs this vector. If we would like to store this vector in a **variable** we can do so with the **assignment** operator `=`. In this case the variable `x` now holds the vector we just created, and we can access the vector by typing `x`.
+Here `R` simply outputs this vector. If we would like to store this vector in a **variable**, we can do so with the **assignment** operator `=`. In this case the variable `x` now holds the vector we just created, and we can access the vector by typing `x`.
 
 
 ```r
@@ -98,7 +98,7 @@ Frequently you may wish to create a vector based on a sequence of numbers. The q
 
 Here we see `R` labeling the rows after the first since this is a large vector. Also, we see that by putting parentheses around the assignment, `R` both stores the vector in a variable called `y` and automatically outputs `y` to the console.
 
-Note that scalars do not exists in `R`. They are simply vectors of length `1`.
+Note that scalars do not exist in `R`. They are simply vectors of length `1`.
 
 
 ```r
@@ -109,7 +109,7 @@ Note that scalars do not exists in `R`. They are simply vectors of length `1`.
 ## [1] 2
 ```
 
-If we want to create a sequence that isn't limited to integers and increasing by 1 at a time, we can use the `seq()` function.
+To create a sequence that is not limited to consecutive integers, use the `seq()` function to define a sequence by its start, end, and increment.
 
 
 ```r
@@ -277,7 +277,7 @@ x[z]
 
 ### Vectorization
 
-One of the biggest strengths of `R` is its use of vectorized operations. (Frequently the lack of understanding of this concept leads of a belief that `R` is *slow*. `R` is not the fastest language, but it has a reputation for being slower than it really is.)
+One of the biggest strengths of `R` is its use of vectorized operations. (Frequently the lack of understanding of this concept leads to a belief that `R` is *slow*. `R` is not the fastest language, but it has a reputation for being slower than it really is.)
 
 
 ```r
@@ -416,8 +416,6 @@ x[x != 3]
 ## [1] 1 5 7 8 9
 ```
 
-- TODO: coercion
-
 
 ```r
 sum(x > 3)
@@ -435,7 +433,7 @@ as.numeric(x > 3)
 ## [1] 0 0 1 1 1 1
 ```
 
-Here we see that using the `sum()` function on a vector of logical `TRUE` and `FALSE` values that is the result of `x > 3` results in a numeric result. `R` is first automatically coercing the logical to numeric where `TRUE` is `1` and `FALSE` is `0`. This coercion from logical to numeric happens for most mathematical operations.
+Here we see that using the `sum()` function on a vector of logical `TRUE` and `FALSE` values that is the result of `x > 3` results in a numeric result. `R` is first automatically coercing the logical to numeric where `TRUE` is `1` and `FALSE` is `0`. This coercion from logical to numeric happens for most mathematical operations. If you are interested in more detail, check out [Advanced R](https://adv-r.hadley.nz/vectors-chap.html?q=coercion#testing-and-coercion).
 
 
 ```r
@@ -631,6 +629,56 @@ identical(x + y, rep(x, 10) + y)
 # ?any
 # ?all.equal
 ```
+
+
+```r
+x = c(1, 3, 5)
+y = c(1, 2, 4)
+x == y
+```
+
+```
+## [1]  TRUE FALSE FALSE
+```
+
+```r
+all(x == y)
+```
+
+```
+## [1] FALSE
+```
+
+```r
+any(x == y)
+```
+
+```
+## [1] TRUE
+```
+
+While `all` returns `TRUE` only when all of its arguments are `TRUE`, `any` returns `TRUE` when at least one of its arguments is `TRUE`.
+
+
+```r
+x = c(10 ^ (-8))
+y = c(10 ^ (-9))
+all(x == y)
+```
+
+```
+## [1] FALSE
+```
+
+```r
+all.equal(x, y)
+```
+
+```
+## [1] TRUE
+```
+
+The `all.equal` function tests "near equality" with a default tolerance value around `1.5e-8` and returns `TRUE` if all of its arguments have differences smaller than the tolerance.
 
 ### Matrices
 
@@ -926,10 +974,10 @@ solve(Z) %*% Z
 ```
 
 ```
-##               [,1]          [,2]          [,3]
-## [1,]  1.000000e+00 -6.245005e-17  0.000000e+00
-## [2,]  9.020562e-17  1.000000e+00 -5.551115e-17
-## [3,] -2.775558e-17  0.000000e+00  1.000000e+00
+##              [,1]          [,2]         [,3]
+## [1,] 1.000000e+00 -6.245005e-17 0.000000e+00
+## [2,] 8.326673e-17  1.000000e+00 5.551115e-17
+## [3,] 2.775558e-17  0.000000e+00 1.000000e+00
 ```
 
 ```r
@@ -1077,7 +1125,7 @@ c(is.matrix(a_vec), is.matrix(b_vec))
 ## [1] FALSE FALSE
 ```
 
-When this is the case, the `%*%` operator is used to calculate the **dot product**, also know as the **inner product** of the two vectors.
+When this is the case, the `%*%` operator is used to calculate the **dot product**, also known as the **inner product** of the two vectors.
 
 The dot product of vectors $\boldsymbol{a} = \lbrack a_1, a_2, \cdots a_n \rbrack$ and $\boldsymbol{b} = \lbrack b_1, b_2, \cdots b_n \rbrack$ is defined to be
 
@@ -1136,7 +1184,7 @@ as.matrix(a_vec) %*% b_vec
 ## [3,]    6    6    6
 ```
 
-At face value this is a $3 \times 1$ matrix, multiplied by a $3 \times 1$ matrix. However, when `b_vec` is automatically coerced to be a matrix, `R` decided to make it a "row vector", a $1 \times 3$ matrix, so that the multiplication has conformable dimensions.
+At face value this is a $3 \times 1$ matrix, multiplied by a $3 \times 1$ matrix. However, when `b_vec` is automatically coerced to be a matrix, `R` decided to make it a "row vector," a $1 \times 3$ matrix, so that the multiplication has conformable dimensions.
 
 If we had coerced both, then `R` would produce an error.
 
@@ -1480,11 +1528,11 @@ dim(example_data)
 ## [1] 10  3
 ```
 
-The `data.frame()` function above is one way to create a data frame. We can also import data from various file types in into `R`, as well as use data stored in packages.
+The `data.frame()` function above is one way to create a data frame. We can also import data from various file types into `R`, as well as use data stored in packages.
 
 
 
-[The example data above can also be found here as a .csv file.](data/example-data.csv) To read this data into `R`, we would use the `read_csv()` function from the `readr` package. Note that `R` has a built in function `read.csv()` that operates very similarly. The `readr` function `read_csv()` has a number of advantages. For example, it is much faster reading larger data. [It also uses the `tibble` package to read the data as a tibble.](https://cran.r-project.org/web/packages/tibble/vignettes/tibble.html){target="_blank"}
+[The example data above can also be found here as a .csv file.](data/example-data.csv) To read this data into `R`, we would use the `read_csv()` function from the `readr` package. Note that `R` has a built-in function `read.csv()` that operates very similarly. The `readr` function `read_csv()` has a number of advantages. For example, it is much faster reading larger data. [It also uses the `tibble` package to read the data as a tibble.](https://cran.r-project.org/web/packages/tibble/vignettes/tibble.html){target="_blank"}
 
 
 ```r
@@ -1568,18 +1616,18 @@ head(mpg, n = 10)
 
 ```
 ## # A tibble: 10 x 11
-##    manufacturer model    displ  year   cyl trans   drv     cty   hwy fl    class
-##    <chr>        <chr>    <dbl> <int> <int> <chr>   <chr> <int> <int> <chr> <chr>
-##  1 audi         a4         1.8  1999     4 auto(l~ f        18    29 p     comp~
-##  2 audi         a4         1.8  1999     4 manual~ f        21    29 p     comp~
-##  3 audi         a4         2    2008     4 manual~ f        20    31 p     comp~
-##  4 audi         a4         2    2008     4 auto(a~ f        21    30 p     comp~
-##  5 audi         a4         2.8  1999     6 auto(l~ f        16    26 p     comp~
-##  6 audi         a4         2.8  1999     6 manual~ f        18    26 p     comp~
-##  7 audi         a4         3.1  2008     6 auto(a~ f        18    27 p     comp~
-##  8 audi         a4 quat~   1.8  1999     4 manual~ 4        18    26 p     comp~
-##  9 audi         a4 quat~   1.8  1999     4 auto(l~ 4        16    25 p     comp~
-## 10 audi         a4 quat~   2    2008     4 manual~ 4        20    28 p     comp~
+##    manufacturer model      displ  year   cyl trans drv     cty   hwy fl    class
+##    <chr>        <chr>      <dbl> <int> <int> <chr> <chr> <int> <int> <chr> <chr>
+##  1 audi         a4           1.8  1999     4 auto~ f        18    29 p     comp~
+##  2 audi         a4           1.8  1999     4 manu~ f        21    29 p     comp~
+##  3 audi         a4           2    2008     4 manu~ f        20    31 p     comp~
+##  4 audi         a4           2    2008     4 auto~ f        21    30 p     comp~
+##  5 audi         a4           2.8  1999     6 auto~ f        16    26 p     comp~
+##  6 audi         a4           2.8  1999     6 manu~ f        18    26 p     comp~
+##  7 audi         a4           3.1  2008     6 auto~ f        18    27 p     comp~
+##  8 audi         a4 quattro   1.8  1999     4 manu~ 4        18    26 p     comp~
+##  9 audi         a4 quattro   1.8  1999     4 auto~ 4        16    25 p     comp~
+## 10 audi         a4 quattro   2    2008     4 manu~ 4        20    28 p     comp~
 ```
 
 The function `head()` will display the first `n` observations of the data frame. The `head()` function was more useful before tibbles. Notice that `mpg` is a tibble already, so the output from `head()` indicates there are only `10` observations. Note that this applies to `head(mpg, n = 10)` and not `mpg` itself. Also note that tibbles print a limited number of rows and columns by default. The last line of the printed output indicates which rows and columns were omitted.
@@ -1591,19 +1639,19 @@ mpg
 
 ```
 ## # A tibble: 234 x 11
-##    manufacturer model    displ  year   cyl trans   drv     cty   hwy fl    class
-##    <chr>        <chr>    <dbl> <int> <int> <chr>   <chr> <int> <int> <chr> <chr>
-##  1 audi         a4         1.8  1999     4 auto(l~ f        18    29 p     comp~
-##  2 audi         a4         1.8  1999     4 manual~ f        21    29 p     comp~
-##  3 audi         a4         2    2008     4 manual~ f        20    31 p     comp~
-##  4 audi         a4         2    2008     4 auto(a~ f        21    30 p     comp~
-##  5 audi         a4         2.8  1999     6 auto(l~ f        16    26 p     comp~
-##  6 audi         a4         2.8  1999     6 manual~ f        18    26 p     comp~
-##  7 audi         a4         3.1  2008     6 auto(a~ f        18    27 p     comp~
-##  8 audi         a4 quat~   1.8  1999     4 manual~ 4        18    26 p     comp~
-##  9 audi         a4 quat~   1.8  1999     4 auto(l~ 4        16    25 p     comp~
-## 10 audi         a4 quat~   2    2008     4 manual~ 4        20    28 p     comp~
-## # ... with 224 more rows
+##    manufacturer model      displ  year   cyl trans drv     cty   hwy fl    class
+##    <chr>        <chr>      <dbl> <int> <int> <chr> <chr> <int> <int> <chr> <chr>
+##  1 audi         a4           1.8  1999     4 auto~ f        18    29 p     comp~
+##  2 audi         a4           1.8  1999     4 manu~ f        21    29 p     comp~
+##  3 audi         a4           2    2008     4 manu~ f        20    31 p     comp~
+##  4 audi         a4           2    2008     4 auto~ f        21    30 p     comp~
+##  5 audi         a4           2.8  1999     6 auto~ f        16    26 p     comp~
+##  6 audi         a4           2.8  1999     6 manu~ f        18    26 p     comp~
+##  7 audi         a4           3.1  2008     6 auto~ f        18    27 p     comp~
+##  8 audi         a4 quattro   1.8  1999     4 manu~ 4        18    26 p     comp~
+##  9 audi         a4 quattro   1.8  1999     4 auto~ 4        16    25 p     comp~
+## 10 audi         a4 quattro   2    2008     4 manu~ 4        20    28 p     comp~
+## # i 224 more rows
 ```
 
 The function `str()` will display the "structure" of the data frame. It will display the number of **observations** and **variables**, list the variables, give the type of each variable, and show some elements of each variable. This information can also be found in the "Environment" window in RStudio.
@@ -1875,10 +1923,10 @@ We can also write our own functions in `R`. For example, we often like to "stand
 \frac{x - \bar{x}}{s}
 \]
 
-In `R` we would write a function to do this. When writing a function, there are three thing you must do.
+In `R` we would write a function to do this. When writing a function, there are three things you must do.
 
 - Give the function a name. Preferably something that is short, but descriptive.
-- Specify the arguments using `function()`
+- Specify the arguments using `function()`.
 - Write the body of the function within curly braces, `{}`.
 
 
@@ -1901,8 +1949,8 @@ To test our function, we will take a random sample of size `n = 10` from a norma
 ```
 
 ```
-##  [1]  1.3147455 -3.0137094 15.1138233 -2.0834096  0.2957811  6.1089019
-##  [7] -1.3729452  5.2129537  2.7207218  8.4574800
+##  [1]  7.54085691  0.03457035 -2.48858026  3.20704069  0.49786585  0.48319290
+##  [7]  0.58069830 -8.48360575  8.69700003  8.76160882
 ```
 
 ```r
@@ -1910,8 +1958,8 @@ standardize(x = test_sample)
 ```
 
 ```
-##  [1] -0.35046347 -1.12415348  2.11605375 -0.95786698 -0.53259835  0.50646839
-##  [7] -0.83087495  0.34632205 -0.09915213  0.92626516
+##  [1]  1.0464676 -0.3418983 -0.8085813  0.2448831 -0.2562070 -0.2589209
+##  [7] -0.2408862 -1.9174236  1.2603083  1.2722583
 ```
 
 This function could be written much more succinctly, simply performing all the operations on one line and immediately returning the result, without storing any of the intermediate results.
@@ -2013,7 +2061,7 @@ get_var(test_sample)
 ```
 
 ```
-## [1] 31.2991
+## [1] 29.23092
 ```
 
 ```r
@@ -2021,7 +2069,7 @@ get_var(test_sample, biased = FALSE)
 ```
 
 ```
-## [1] 31.2991
+## [1] 29.23092
 ```
 
 ```r
@@ -2029,10 +2077,10 @@ var(test_sample)
 ```
 
 ```
-## [1] 31.2991
+## [1] 29.23092
 ```
 
-We see the function is working as expected, and when returning the unbiased estimate it matches `R`'s built in function `var()`. Finally, let's examine the biased estimate of $\sigma^2$.
+We see the function is working as expected, and when returning the unbiased estimate it matches `R`'s built-in function `var()`. Finally, let's examine the biased estimate of $\sigma^2$.
 
 
 ```r
@@ -2040,7 +2088,7 @@ get_var(test_sample, biased = TRUE)
 ```
 
 ```
-## [1] 28.16919
+## [1] 26.30783
 ```
 
 

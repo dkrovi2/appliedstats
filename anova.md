@@ -33,7 +33,7 @@ The biggest difference between an observational study and an experiment is *how*
 
 In an experiment, the predictors, which are controlled by the experimenter, are called **factors**. The possible values of these factors are called **levels**. Subjects are *randomly* assigned to a level of each of the factors.
 
-The design of experiments could be a course by itself. The Wikipedia article on [design of experiments](https://en.wikipedia.org/wiki/Design_of_experiments){target="_blank"} gives a good overview. Originally, most of the methodology was developed for agricultural applications by [R. A. Fisher](https://en.wikipedia.org/wiki/Ronald_Fisher){target="_blank"}, but are still in use today, now in a wide variety of application areas. Notably, these methods have seen a resurgence as a part of "A/B Testing."
+The design of experiments could be a course by itself. The Wikipedia article on [design of experiments](https://en.wikipedia.org/wiki/Design_of_experiments){target="_blank"} gives a good overview. Originally, most of the methodology was developed for agricultural applications by [R. A. Fisher](https://en.wikipedia.org/wiki/Ronald_Fisher){target="_blank"}, but is still in use today, now in a wide variety of application areas. Notably, these methods have seen a resurgence as a part of "A/B Testing."
 
 <!-- TODO: In the future, discuss the Morrow Plots: http://cropsci.illinois.edu/research/morrow -->
 
@@ -81,7 +81,7 @@ For the stated model and assuming the null hypothesis is true, the $t$ test stat
 
 
 
-As an example, suppose we are interested in the effect of [melatotin](https://en.wikipedia.org/wiki/Melatonin){target="_blank"} on sleep duration. A researcher obtains a random sample of 20 adult males. Of these subjects, 10 are randomly chosen for the control group, which will receive a placebo. The remaining 10 will be given 5mg of melatonin before bed. The sleep duration in hours of each subject is then measured. The researcher chooses a significance level of $\alpha = 0.10$. Was sleep duration affected by the melatonin?
+As an example, suppose we are interested in the effect of [melatonin](https://en.wikipedia.org/wiki/Melatonin){target="_blank"} on sleep duration. A researcher obtains a random sample of 20 adult males. Of these subjects, 10 are randomly chosen for the control group, which will receive a placebo. The remaining 10 will be given 5mg of melatonin before bed. The sleep duration in hours of each subject is then measured. The researcher chooses a significance level of $\alpha = 0.10$. Was sleep duration affected by the melatonin?
 
 
 ```r
@@ -131,7 +131,7 @@ t.test(sleep ~ group, data = melatonin, var.equal = TRUE)
 ## 
 ## data:  sleep by group
 ## t = -2.0854, df = 18, p-value = 0.05154
-## alternative hypothesis: true difference in means is not equal to 0
+## alternative hypothesis: true difference in means between group control and group treatment is not equal to 0
 ## 95 percent confidence interval:
 ##  -3.02378261  0.01117547
 ## sample estimates:
@@ -171,13 +171,13 @@ boxplot(sleep ~ group, data = melatonin, col = 5:6)
 What if there are more than two groups? Consider the model
 
 \[
-y_{ij} = \mu + \alpha_i + e_{ij}.
+y_{ij} = \mu + \alpha_i + e_{ij}
 \]
 
 where
 
 \[
-\sum \alpha_i = 0
+\sum_{i=1}^{g} \alpha_i = 0
 \]
 
 and
@@ -211,7 +211,7 @@ where the mean of each group is given by
 
 Here $\alpha_i$ measures the effect of group $i$. It is the difference between the overall mean and the mean of group $i$.
 
-Essentially, the assumptions here are the same as the two sample case, however now, we simply have more groups.
+Essentially, the assumptions here are the same as the two-sample case, however now, we simply have more groups.
 
 Much like the two-sample case, we would again like to test if the means of the groups are equal.
 
@@ -219,7 +219,7 @@ Much like the two-sample case, we would again like to test if the means of the g
 H_0: \mu_1 = \mu_2 = \ldots \mu_g \quad \text{vs} \quad H_1: \text{ Not all } \mu_i \text{ are equal.}
 \]
 
-Notice that the alternative simply indicates the some of the means are not equal, not specifically which are not equal. More on that later.
+Notice that the alternative simply indicates that some of the means are not equal, not specifically which are not equal. More on that later.
 
 Alternatively, we could write
 
@@ -227,7 +227,7 @@ Alternatively, we could write
 H_0: \alpha_1 = \alpha_2 = \ldots = \alpha_g = 0 \quad \text{vs} \quad H_1: \text{ Not all } \alpha_i \text{ are } 0.
 \]
 
-This test is called **Analysis of Variance**. Analysis of Variance (ANOVA) compares the variation due to specific sources (between groups) with the variation among individuals who should be similar (within groups). In particular, ANOVA tests whether several populations have the same mean by comparing how far apart the sample means are with how much variation there is within the samples. We use variability of means to test for equality of means, thus the use of *variance* in the name for a test about means.
+This test is called **Analysis of Variance (ANOVA)**. ANOVA compares the variation due to specific sources (between groups) with the variation among individuals who should be similar (within groups). In particular, ANOVA tests whether several populations have the same mean by comparing how far apart the sample means are with how much variation there is within the samples. We use variability of means to test for equality of means, thus the use of *variance* in the name for a test about means.
 
 We'll leave out most of the details about how the estimation is done, but we'll see later, that it is done via least squares. We'll use `R` to obtain these estimates, but they are actually rather simple. We only need to think about the sample means of the groups.
 
@@ -273,18 +273,18 @@ We reject the null (equal means) when the $F$ statistic is large. This occurs wh
 
 
 
-Let's see what this looks like in a few situations. In each of the following examples, we'll consider sampling 20 observations ($n_i = 20$) from three populations (groups).
+Let's see what this looks like in a few situations. In each of the following examples, we'll consider sampling 20 observations ($n_i = 20$) from three populations (groups; $g = 3$).
 
 First, consider $\mu_A = -5, \mu_B = 0, \mu_C = 5$ with $\sigma = 1$.
 
 
 \begin{center}\includegraphics{anova_files/figure-latex/unnamed-chunk-9-1} \end{center}
 
-The left panel shows the three normal distributions we are sampling from. The ticks along the $x$-axis show the randomly sampled observations. The right panel, re-displays only the sampled values in a boxplot. Note that the mid-line of the boxes is usually the sample median. These boxplots have been modified to use the sample mean.
+The left panel shows the three normal distributions we are sampling from. The ticks along the $x$-axis show the randomly sampled observations. The right panel re-displays only the sampled values in a boxplot. Note that the mid-line of the boxes is usually the sample median. These boxplots have been modified to use the sample mean.
 
 Here the sample means vary a lot around the overall sample mean, which is the solid grey line on the right panel. Within the groups there is variability, but it is still obvious that the sample means are very different.
 
-As a result, we we obtain a *large* test statistic, thus *small* p-value. 
+As a result, we obtain a *large* test statistic, thus *small* p-value. 
 
 - $F = 374.4469511$
 - $\text{p-value} = \ensuremath{1.6349862\times 10^{-33}}$
@@ -296,7 +296,7 @@ Now consider $\mu_A = 0, \mu_B = 0, \mu_C = 0$ with $\sigma = 1$. That is, equal
 
 Here the sample means vary only a tiny bit around the overall sample mean. Within the groups there is variability, this time much larger than the variability of the sample means.
 
-As a result, we we obtain a *small* test statistic, thus *large* p-value. 
+As a result, we obtain a *small* test statistic, thus *large* p-value. 
 
 - $F = 2.667892$
 - $\text{p-value} = 0.0780579$
@@ -314,7 +314,6 @@ The next two examples show different means, with different levels of noise. Noti
 Above, there isn't obvious separation between the groups like the first example, but it is still obvious the means are different. Below, there is more noise. Visually it is somewhat hard to tell, but the test still suggests a difference of means. (At an $\alpha$ of 0.05.)
 
 - $\mu_A = -1, \mu_B = 0, \mu_C = 1, \sigma = 2$
-- $n_i = 20$ for each group.
 
 
 \begin{center}\includegraphics{anova_files/figure-latex/unnamed-chunk-12-1} \end{center}
@@ -350,7 +349,7 @@ plot(coag ~ diet, data = coagulation, col = 2:5)
 
 \begin{center}\includegraphics{anova_files/figure-latex/unnamed-chunk-13-1} \end{center}
 
-We first load the data and create the relevant boxplot. The plot alone suggests a difference of means. The `aov()` function is used to obtain the relevant sums of squares. Using the `summary()` function on the output from `aov()` creates the desired ANOVA table. (Without the unneeded row for total.)
+We first load the data and create the relevant boxplot. The plot alone suggests a difference of means. The `aov()` function is used to obtain the relevant sums of squares. Using the `summary()` function on the output from `aov()` creates the desired ANOVA table (without the unneeded row for total).
 
 
 ```r
@@ -479,15 +478,28 @@ sim_anova = function(n = 10, mu_a = 0, mu_b = 0, mu_c = 0, mu_d = 0, sigma = 1, 
   ifelse(stat, f_stat, p_val)
   
 }
+```
 
+
+```r
 f_stats = replicate(n = 5000, sim_anova(stat = TRUE))
+```
+
+
+
+
+
+
+
+```r
 hist(f_stats, breaks = 100, prob = TRUE, border = "dodgerblue", main = "Empirical Distribution of F")
 curve(df(x, df1 = 4 - 1, df2 = 40 - 4), col = "darkorange", add = TRUE, lwd = 2)
 ```
 
 
 
-\begin{center}\includegraphics{anova_files/figure-latex/unnamed-chunk-17-1} \end{center}
+\begin{center}\includegraphics{anova_files/figure-latex/sim-anova-graphs-1} \end{center}
+
 
 ### Power
 
@@ -507,8 +519,8 @@ A number of things can affect the power of a test:
 
 - **Effect size**. It is easier to detect larger effects.
 - **Noise level** $\sigma$. The less noise, the easier it is to detect signal (effect). We don't have much ability to control this, except maybe to measure more accurately.
-- **Significance level** $\alpha$. Lower significance level makes rejecting more difficult. (But also allows for less false positives.)
-- **Sample size**. Large samples means easier to detect effects.
+- **Significance level** $\alpha$. Lower significance level makes rejecting more difficult. (But also allows for fewer false positives.)
+- **Sample size**. Large samples mean easier to detect effects.
 - **Balanced design**. An equal number of observations per group leads to higher power.
 
 The following simulations look at the effect of significance level, effect size, and noise level on the power of an ANOVA $F$-test. Homework will look into sample size and balance.
@@ -521,7 +533,7 @@ mean(p_vals < 0.05)
 ```
 
 ```
-## [1] 0.663
+## [1] 0.661
 ```
 
 ```r
@@ -529,7 +541,7 @@ mean(p_vals < 0.01)
 ```
 
 ```
-## [1] 0.39
+## [1] 0.384
 ```
 
 
@@ -540,7 +552,7 @@ mean(p_vals < 0.05)
 ```
 
 ```
-## [1] 0.408
+## [1] 0.425
 ```
 
 ```r
@@ -548,7 +560,7 @@ mean(p_vals < 0.01)
 ```
 
 ```
-## [1] 0.179
+## [1] 0.19
 ```
 
 
@@ -559,7 +571,7 @@ mean(p_vals < 0.05)
 ```
 
 ```
-## [1] 0.964
+## [1] 0.956
 ```
 
 ```r
@@ -567,7 +579,7 @@ mean(p_vals < 0.01)
 ```
 
 ```
-## [1] 0.855
+## [1] 0.837
 ```
 
 ## Post Hoc Testing
@@ -603,7 +615,7 @@ Also note that we are using the argument `p.adj = "none"`. What is this? An adju
 
 The adjustment is an attempt to correct for the [multiple testing problem](https://en.wikipedia.org/wiki/Multiple_comparisons_problem){target="_blank"}. (See also: [Relevant XKCD](https://xkcd.com/882/){target="_blank"}. ) Imagine that you knew ahead of time that you were going to perform 100 $t$-tests. Suppose you wish to do this with a false positive rate of $\alpha = 0.05$. If we use this significance level for each test, for 100 tests, we then expect 5 false positives. That means, with 100 tests, we're almost guaranteed to have at least one error.
 
-What we'd really like, is for the [family-wise error rate](https://en.wikipedia.org/wiki/Family-wise_error_rate){target="_blank"} to be 0.05. If we consider the 100 tests to be a single "experiment" the FWER is the rate of one or more false positives for in the full experiment (100 tests). Consider it an error rate for an entire procedure, instead of a single test.
+What we'd really like is for the [family-wise error rate (FWER)](https://en.wikipedia.org/wiki/Family-wise_error_rate){target="_blank"} to be 0.05. If we consider the 100 tests to be a single "experiment," the FWER is the rate of one or more false positives for the full experiment (100 tests). Consider it an error rate for an entire procedure, instead of a single test.
 
 With this in mind, one of the simplest adjustments we can make, is to increase the p-values for each test, depending on the number of tests. In particular the Bonferroni correction simply multiplies by the number of tests.
 
@@ -630,9 +642,9 @@ with(coagulation, pairwise.t.test(coag, diet, p.adj = "bonferroni"))
 ## P value adjustment method: bonferroni
 ```
 
-We see that these p-values are much higher than the unadjusted p-values, thus, we are less likely to reject each tests. As a result, the FWER is 0.05, instead of an error rate of 0.05 for each test.
+We see that these p-values are much higher than the unadjusted p-values, thus, we are less likely to reject each test. As a result, the FWER is 0.05, instead of an error rate of 0.05 for each test.
 
-We can simulate the 100 test scenario to illustrate this point.
+We can simulate the 100 test scenarios to illustrate this point.
 
 
 ```r
@@ -646,7 +658,12 @@ get_p_val = function() {
   glance(t.test(y ~ g, var.equal = TRUE))$p.value
   
 }
+```
 
+
+
+
+```r
 set.seed(1337)
 
 # FWER with 100 tests
@@ -655,9 +672,11 @@ set.seed(1337)
 mean(replicate(1000, any(replicate(100, get_p_val()) < 0.05)))
 ```
 
+
 ```
 ## [1] 0.994
 ```
+
 
 ```r
 # FWER with 100 tests
@@ -665,6 +684,7 @@ mean(replicate(1000, any(replicate(100, get_p_val()) < 0.05)))
 # bonferroni adjustment
 mean(replicate(1000, any(p.adjust(replicate(100, get_p_val()), "bonferroni") < 0.05)))
 ```
+
 
 ```
 ## [1] 0.058
@@ -715,7 +735,7 @@ The creator of this method, [John Tukey](https://en.wikipedia.org/wiki/John_Tuke
 What if there is more than one factor variable? Why do we need to limit ourselves to experiments with only one factor? We don't! Consider the model
 
 \[
-y_{ijk} = \mu + \alpha_i + \beta_j + (\alpha \beta)_{ij} + \epsilon_{ijk}.
+y_{ijk} = \mu + \alpha_i + \beta_j + (\alpha \beta)_{ij} + \epsilon_{ijk}
 \]
 
 where $\epsilon_{ijk}$ are $N(0, \sigma^2)$ random variables.
@@ -723,7 +743,7 @@ where $\epsilon_{ijk}$ are $N(0, \sigma^2)$ random variables.
 We add constraints
 
 \[
-\sum \alpha_i = 0 \quad \quad \sum \beta_j = 0.
+\sum_{i=1}^{I} \alpha_i = 0 \quad \quad \sum_{j=1}^{J} \beta_j = 0.
 \]
 
 and
@@ -807,7 +827,7 @@ levels(rats$treat)
 ## [1] "A" "B" "C" "D"
 ```
 
-Here, 48 rats were randomly assigned both one of three poisons and one of four possible treatments. The experimenters then measures their survival time in tens of hours. A total of 12 groups, each with 4 replicates.
+Here, 48 rats were randomly assigned both one of three poisons and one of four possible treatments. The experimenters then measured their survival time in tens of hours. A total of 12 groups, each with 4 replicates.
 
 Before running any tests, we should first look at the data. We will create **interaction plots**, which will help us visualize the effect of one factor, as we move through the levels of another factor.
 
@@ -1148,7 +1168,7 @@ summary(aov(breaks ~ wool * tension, data = warpbreaks))
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ```
 
-Using an $\alpha$ of $0.05$ the ANOVA test finds that the interaction is significant, so we use the interaction model here.
+Using an $\alpha$ of $0.05$, the ANOVA test finds that the interaction is significant, so we use the interaction model here.
 
 <!-- TODO: two-way calculation details in an appendix -->
 
@@ -1160,4 +1180,4 @@ The `R` Markdown file for this chapter can be found here:
 
 - [`anova.Rmd`](anova.Rmd){target="_blank"}
 
-The file was created using `R` version `4.0.2`.
+The file was created using `R` version `4.3.1`.

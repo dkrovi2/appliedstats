@@ -18,7 +18,7 @@ So far, we have seen a lot of `R`, and a lot of `R` quickly. Again, the precedin
 - [`R` for Data Science](http://r4ds.had.co.nz/){target="_blank"} by Hadley Wickham and Garrett Grolemund.
     - Similar to Advanced `R`, but focuses more on data analysis, while still introducing programming concepts. Especially useful for working in the [tidyverse](http://tidyverse.org/){target="_blank"}. 
 - [The Art of `R` Programming](https://www.nostarch.com/artofr.htm){target="_blank"} by Norman Matloff.
-    - Gentle introduction to the programming side of `R`. (Whereas we will focus more on the data analysis side.) A [free electronic version](https://vufind.carli.illinois.edu/vf-uiu/Record/uiu_8490009){target="_blank"} is available through the Illinois library.
+    - Gentle introduction to the programming side of `R`. (Whereas we will focus more on the data analysis side.) A [free electronic version](https://i-share-uiu.primo.exlibrisgroup.com/discovery/fulldisplay?docid=alma99954930920805899&context=L&vid=01CARLI_UIU:CARLI_UIU&search_scope=MyInstitution&tab=LibraryCatalog&lang=en){target="_blank"} is available through the Illinois library.
 
 ## Advanced References
 
@@ -34,6 +34,7 @@ So far, we have seen a lot of `R`, and a lot of `R` quickly. Again, the precedin
 Those who are familiar with other languages may find the following "cheatsheets" helpful for transitioning to `R`.
 
 - [MATLAB, NumPy, Julia](http://hyperpolyglot.org/numerical-analysis2#polynomials){target="_blank"}
+- [Python pandas comparison with R/R Libraries](https://pandas.pydata.org/pandas-docs/stable/getting_started/comparison/comparison_with_r.html)
 - [Stata](http://dss.princeton.edu/training/RStata.pdf){target="_blank"}
 - [SAS]() - Look for a resource still! Suggestions welcome.
 
@@ -47,7 +48,7 @@ The following video playlists were made as an introduction to `R`, RStudio, and 
 
 Note that RStudio and RMarkdown are constantly receiving excellent support and updates, so these videos may already contain some outdated information.
 
-[RStudio](http://rmarkdown.rstudio.com/){target="_blank"} provides their own [tutorial for RMarkdown](http://rmarkdown.rstudio.com/lesson-1.html){target="_blank"}. They also have an excellent [RStudio "cheatsheets"](https://www.rstudio.com/wp-content/uploads/2016/01/rstudio-IDE-cheatsheet.pdf){target="_blank"} which visually identifies many of the features available in the IDE.
+[RStudio](http://rmarkdown.rstudio.com/){target="_blank"} provides their own [tutorial for RMarkdown](http://rmarkdown.rstudio.com/lesson-1.html){target="_blank"}. They also have an excellent [RStudio "cheatsheet"](https://www.rstudio.com/resources/cheatsheets/#rstudio-idecheatsheet){target="_blank"} which visually identifies many of the features available in the IDE. You may also explore some additional ["cheatsheets"](https://www.rstudio.com/resources/cheatsheets/){target="_blank"} on their website.
 
 ## RMarkdown Template
 

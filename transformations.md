@@ -129,7 +129,7 @@ In order to correct for this, we would like to find some function of $Y$, $g(Y)$
   \text{Var}[g(Y) \mid X = x] = c
 \]
 
-where $c$ is a constant that does not depend on the mean, $\text{E}[Y \mid X = x]$. A transformation that accomplishes this is called a **variance stabilizaing transformation.**
+where $c$ is a constant that does not depend on the mean, $\text{E}[Y \mid X = x]$. A transformation that accomplishes this is called a **variance stabilizing transformation.**
 
 A common variance stabilizing transformation (VST) when we see increasing variance in a fitted versus residuals plot is $\log(Y)$. Also, if the values of a variable range over more than one order of magnitude and the variable is *strictly positive*, then replacing the variable by its logarithm is likely to be helpful.
 
@@ -368,7 +368,7 @@ abline(h = 0, lty = 2, col = "darkorange", lwd = 2)
 
 \begin{center}\includegraphics{transformations_files/figure-latex/unnamed-chunk-19-1} \end{center}
 
-Looking at a fitted versus residuals plot verifies that there likely are not any issue with the assumptions of this model, which Breusch-Pagan and Shapiro-Wilk tests verify.
+Looking at a fitted versus residuals plot verifies that there likely are not any issues with the assumptions of this model, which Breusch-Pagan and Shapiro-Wilk tests verify.
 
 
 ```r
@@ -451,7 +451,7 @@ abline(h = 0, lty = 2, col = "darkorange", lwd = 2)
 
 The resulting fitted versus residuals plot looks much better!
 
-Lastly, we return to the `initech` data, and the `initech_fit` model we had used earlier. Recall, that this was the untransformed model, that we used a $\log$ transform to fix.
+Lastly, we return to the `initech` data, and the `initech_fit` model we had used earlier. Recall that this was the untransformed model, that we used a $\log$ transform to fix.
 
 
 ```r
@@ -563,7 +563,7 @@ marketing = read.csv("data/marketing.csv")
 
 ```r
 plot(sales ~ advert, data = marketing, 
-     xlab = "Advert Spending (in $100,00)", ylab = "Sales (in $100,00)",
+     xlab = "Advert Spending (in $10,000)", ylab = "Sales (in $10,000)",
      pch = 20, cex = 2)
 ```
 
@@ -753,7 +753,7 @@ Now we see that with the first and second order terms in the model, the third or
 
 ```r
 plot(sales ~ advert, data = marketing, 
-     xlab = "Advert Spending (in $100,00)", ylab = "Sales (in $100,00)",
+     xlab = "Advert Spending (in $10,000)", ylab = "Sales (in $10,000)",
      pch = 20, cex = 2)
 abline(mark_mod, lty = 2, col = "green", lwd = 2)
 xplot = seq(0, 16, by = 0.01)
@@ -767,7 +767,7 @@ lines(xplot, predict(mark_mod_poly3, newdata = data.frame(advert = xplot)),
 
 \begin{center}\includegraphics{transformations_files/figure-latex/unnamed-chunk-38-1} \end{center}
 
-The previous plot was made using base graphics in `R`. The next plot was made using the package [`ggplot2`](http://ggplot2.org/){target="_blank"}, an increasingly popular plotting method in `R`.
+The previous plot was made using base graphics in `R`. The next plot was made using the package [`ggplot2`](https://ggplot2.tidyverse.org/){target="_blank"}, an increasingly popular plotting method in `R`.
 
 
 ```r
@@ -815,17 +815,17 @@ summary(fit_perf)
 ## 
 ## Coefficients:
 ##               Estimate Std. Error t value Pr(>|t|)
-## (Intercept) -2.114e+01         NA      NA       NA
-## x           -1.918e+03         NA      NA       NA
-## I(x^2)       4.969e+03         NA      NA       NA
-## I(x^3)      -4.932e+03         NA      NA       NA
-## I(x^4)       2.581e+03         NA      NA       NA
-## I(x^5)      -8.035e+02         NA      NA       NA
-## I(x^6)       1.570e+02         NA      NA       NA
-## I(x^7)      -1.947e+01         NA      NA       NA
-## I(x^8)       1.490e+00         NA      NA       NA
-## I(x^9)      -6.424e-02         NA      NA       NA
-## I(x^10)      1.195e-03         NA      NA       NA
+## (Intercept) -2.114e+01        NaN     NaN      NaN
+## x           -1.918e+03        NaN     NaN      NaN
+## I(x^2)       4.969e+03        NaN     NaN      NaN
+## I(x^3)      -4.932e+03        NaN     NaN      NaN
+## I(x^4)       2.581e+03        NaN     NaN      NaN
+## I(x^5)      -8.035e+02        NaN     NaN      NaN
+## I(x^6)       1.570e+02        NaN     NaN      NaN
+## I(x^7)      -1.947e+01        NaN     NaN      NaN
+## I(x^8)       1.490e+00        NaN     NaN      NaN
+## I(x^9)      -6.424e-02        NaN     NaN      NaN
+## I(x^10)      1.195e-03        NaN     NaN      NaN
 ## 
 ## Residual standard error: NaN on 0 degrees of freedom
 ## Multiple R-squared:      1,	Adjusted R-squared:    NaN 
@@ -857,16 +857,16 @@ Our goal then, is to fit a model to this data in order to be able to predict fue
 econ = read.csv("data/fuel_econ.csv")
 ```
 
-In this example, we will be frequently looking a the fitted versus residuals plot, so we *should* write a function to make our life easier, but this is left as an exercise for homework.
+In this example, we will be frequently looking at the fitted versus residuals plot, so we *should* write a function to make our life easier, but this is left as an exercise for homework.
 
 We will also be adding fitted curves to scatterplots repeatedly, so smartly we will write a function to do so.
 
 
 ```r
-plot_econ_curve = function(model){
+plot_econ_curve = function(model) {
   plot(mpg ~ mph, data = econ, xlab = "Speed (Miles per Hour)", 
        ylab = "Fuel Efficiency (Miles per Gallon)", col = "dodgerblue", 
-       pch = 20, cex =2)
+       pch = 20, cex = 2)
   xplot = seq(10, 75, by = 0.1)
   lines(xplot, predict(model, newdata = data.frame(mph = xplot)),
         col = "darkorange", lwd = 2, lty = 1)
@@ -885,7 +885,7 @@ fit1 = lm(mpg ~ mph, data = econ)
 par(mfrow = c(1, 2))
 plot_econ_curve(fit1)
 plot(fitted(fit1), resid(fit1), xlab = "Fitted", ylab = "Residuals", 
-     col = "dodgerblue", pch = 20, cex =2)
+     col = "dodgerblue", pch = 20, cex = 2)
   abline(h = 0, col = "darkorange", lwd = 2)
 ```
 
@@ -930,7 +930,7 @@ summary(fit2)
 par(mfrow = c(1, 2))
 plot_econ_curve(fit2)
 plot(fitted(fit2), resid(fit2), xlab = "Fitted", ylab = "Residuals", 
-     col = "dodgerblue", pch = 20, cex =2)
+     col = "dodgerblue", pch = 20, cex = 2)
   abline(h = 0, col = "darkorange", lwd = 2)
 ```
 
@@ -974,7 +974,7 @@ summary(fit3)
 par(mfrow = c(1, 2))
 plot_econ_curve(fit3)
 plot(fitted(fit3), resid(fit3), xlab = "Fitted", ylab = "Residuals", 
-     col = "dodgerblue", pch = 20, cex =2)
+     col = "dodgerblue", pch = 20, cex = 2)
   abline(h = 0, col = "darkorange", lwd = 2)
 ```
 
@@ -1019,7 +1019,7 @@ summary(fit4)
 par(mfrow = c(1, 2))
 plot_econ_curve(fit4)
 plot(fitted(fit4), resid(fit4), xlab = "Fitted", ylab = "Residuals", 
-     col = "dodgerblue", pch = 20, cex =2)
+     col = "dodgerblue", pch = 20, cex = 2)
   abline(h = 0, col = "darkorange", lwd = 2)
 ```
 
@@ -1067,7 +1067,7 @@ summary(fit6)
 par(mfrow = c(1, 2))
 plot_econ_curve(fit6)
 plot(fitted(fit6), resid(fit6), xlab = "Fitted", ylab = "Residuals", 
-     col = "dodgerblue", pch = 20, cex =2)
+     col = "dodgerblue", pch = 20, cex = 2)
   abline(h = 0, col = "darkorange", lwd = 2)
 ```
 
@@ -1075,7 +1075,7 @@ plot(fitted(fit6), resid(fit6), xlab = "Fitted", ylab = "Residuals",
 
 \begin{center}\includegraphics{transformations_files/figure-latex/unnamed-chunk-52-1} \end{center}
 
-Again the sixth order term is significant with the other terms in the model and here we see less pattern in the residuals plot. Let's now test for which of the previous two models we prefer. We will test
+Again the sixth order term is significant with the other terms in the model and here we see less pattern in the residuals plot. Let's now test which of the previous two models we prefer. We will test
 
 \[
 H_0: \beta_5 = \beta_6 = 0.
@@ -1139,7 +1139,7 @@ summary(fit8)
 par(mfrow = c(1, 2))
 plot_econ_curve(fit8)
 plot(fitted(fit8), resid(fit8), xlab = "Fitted", ylab = "Residuals", 
-     col = "dodgerblue", pch = 20, cex =2)
+     col = "dodgerblue", pch = 20, cex = 2)
   abline(h = 0, col = "darkorange", lwd = 2)
 ```
 
@@ -2161,4 +2161,4 @@ The `R` Markdown file for this chapter can be found here:
 
 - [`transformations.Rmd`](transformations.Rmd){target="_blank"}
 
-The file was created using `R` version `4.0.2`.
+The file was created using `R` version `4.3.1`.
